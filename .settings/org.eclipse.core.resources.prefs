@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/com/lkovari/components/clock/AnalogClock.java=UTF-8
+encoding//src/com/lkovari/components/clock/ShadowClockhandContentKind.java=UTF-8
+encoding//src/com/lkovari/components/clock/TimeRunKind.java=UTF-8
+encoding//src/com/lkovari/components/clock/TimerTick.java=UTF-8
+encoding//src/com/lkovari/components/clock/colors/ColorDescriptor.java=UTF-8
+encoding//src/com/lkovari/components/clock/events/TimeChangeContainer.java=UTF-8
+encoding//src/com/lkovari/components/clock/events/TimeChangeEvent.java=UTF-8
+encoding//src/com/lkovari/components/clock/events/TimeChangeKind.java=UTF-8
+encoding//src/com/lkovari/components/clock/events/TimeChangeListener.java=UTF-8
+encoding//src/com/lkovari/components/clock/test/AnalogClockTest.java=UTF-8
+encoding//src/com/lkovari/utilities/TimeFormatKind.java=UTF-8
+encoding//src/com/lkovari/utilities/TimePartKind.java=UTF-8
+encoding//src/com/lkovari/utilities/TimeRange.java=UTF-8
+encoding//src/com/lkovari/utilities/TimeUtilities.java=UTF-8
+encoding//src/module-info.java=UTF-8
