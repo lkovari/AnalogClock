@@ -47,6 +47,14 @@ import com.lkovari.components.clock.events.TimeChangeEvent;
 import com.lkovari.components.clock.events.TimeChangeKind;
 import com.lkovari.components.clock.events.TimeChangeListener;
 
+
+
+/**
+ * 
+ * @author László Kővári
+ * TODO List
+ * - replace long constructor parameter with a parameter class
+ */
 public class AnalogClock extends JPanel implements MouseMotionListener, MouseListener {
     /**
      * Field <code>serialVersionUID</code>
