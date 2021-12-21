@@ -73,7 +73,6 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
     public static final String PROP_LOGO_TEXT = "logoText";
     public static final String PROP_CAPTURE_BACKGROUND = "captureBackground";
     public static final String PROP_COLORDESCRIPTOR = "colorDescriptor";
-    
     private transient RenderingHints renderingHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     // the engine for drive the pointer of secundum
     private transient volatile TimerTick timerTick;
@@ -109,7 +108,8 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
     private double lengthOfMinPointer = 0f;
     private double lengthOfHourPointer = 0f;
     // angle of pointer of secundum
-    private double baseAngleOfMouse = -1;
+    @SuppressWarnings("unused")
+	private double baseAngleOfMouse = -1;
     // minute pointer for sign if a mouse is in the minute pointer area
     private Polygon minutePointerAsPolygon = new Polygon();
     // hour pointer for sign if a mouse is in the minute pointer area
@@ -128,7 +128,7 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
     private boolean captureBackground = false;
     private transient Image background;
     private TimeRunKind timeRunKind = TimeRunKind.DIGITAL;
-    
+
     public void setTimeRunKind(TimeRunKind v) {
     	this.timeRunKind = v;
     }
@@ -136,6 +136,19 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
     public TimeRunKind getTimeRunKind() {
     	return this.timeRunKind;
     }
+    // set the default TimeFaceKind 
+    private  TimeFaceKind timeFaceKind = TimeFaceKind.HOUR12;
+    public void setTimeFaceKind(TimeFaceKind v) {
+    	this.timeFaceKind = v;
+    }
+    
+    public TimeFaceKind getTimeFaceKind() {
+    	return this.timeFaceKind;
+    }
+    
+    private int hourMarkerInDegree = 30;    
+    private int hourIncrementInDegree = 6;
+
     
     protected int fontSize = 8;
     //protected Font clockFont = new Font("Arial", Font.PLAIN, fontSize);
@@ -438,7 +451,7 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
      * @param g Graphics
      */
     private void drawHourhand(Graphics g, float hr, float min, Color pointerColor) {
-    	drawHand(g, this.hourPointerAsPolygon, pointerColor, (int)this.lengthOfHourPointer, (int)(0.075 * this.radius), (int)(0.1 * this.radius), (hr * 30 + min / 2), this.centerOfClock);
+    	drawHand(g, this.hourPointerAsPolygon, pointerColor, (int)this.lengthOfHourPointer, (int)(0.075 * this.radius), (int)(0.1 * this.radius), (hr * this.hourMarkerInDegree + min / 2), this.centerOfClock);
     }
     
     /**
@@ -620,12 +633,12 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
         g.setFont(new Font("SansSerif", Font.PLAIN, fontsize));
         
         // step in minutes
-        for (int l = 0; l < 360; l += 6) {
+        for (int l = 0; l < 360; l += this.hourIncrementInDegree) {
             double radian = l * Math.PI / 180;
             
             backupBasicStroke = (BasicStroke) g2.getStroke();
             
-            if (l % 30 == 0) {
+            if (l % hourMarkerInDegree == 0) {
                 if ((l == 0) || (l == 90) || (l == 180) || (l == 270)) {
                     strokeValue = 3.0;
                     setStroke = true;
@@ -646,9 +659,9 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
                     g2.setStroke(basicStroke);
                 }
                 
-                int currentHour = l / 30;
+                int currentHour = l / hourMarkerInDegree;
                 if (l == 0) {
-                    currentHour = 12;
+                	currentHour = timeFaceKind.getValue();
                 }
                 
                 // draw a number
@@ -859,6 +872,22 @@ public class AnalogClock extends JPanel implements MouseMotionListener, MouseLis
         //initialized = true;
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.setupClockFace();
+    }
+
+    private void setupClockFace() {
+        switch (this.timeFaceKind) {
+        	case HOUR12: {
+        		this.hourMarkerInDegree = 30;
+        		this.hourIncrementInDegree = 6;
+        		break;
+        	}
+        	case HOUR24: {
+        		this.hourMarkerInDegree = 15;
+        		this.hourIncrementInDegree = 3;
+        		break;
+        	}
+        }    	
     }
     
     /**

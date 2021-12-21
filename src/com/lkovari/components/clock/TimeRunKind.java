@@ -21,7 +21,8 @@ public enum TimeRunKind {
 	DIGITAL("Digital"),
 	ANALOG("Analog");
 	
-    private String kindOfRun;
+    @SuppressWarnings("unused")
+	private String kindOfRun;
 	 
     TimeRunKind(String kindOfRun) {
         this.kindOfRun = kindOfRun;

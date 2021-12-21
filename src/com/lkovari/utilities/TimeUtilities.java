@@ -70,7 +70,6 @@ public class TimeUtilities {
 	}
 	*/
 	
-	@SuppressWarnings("boxing")
 	private static void assignDTElements(Calendar c0, Calendar c1, boolean date) {
 		int[] elements = null;
 		if (date) 
@@ -239,6 +238,8 @@ public class TimeUtilities {
 				r = c0.compareTo(c1);
 				break;
 			}
+		default:
+			break;
 			
 		}	
 		return r;
@@ -574,10 +575,11 @@ public class TimeUtilities {
      * @return
      */
     public static Date fromCalendar(Calendar calendar, TimeZone local) {
+    	/*
     	int offset = local.getRawOffset();
     	if (local.inDaylightTime(calendar.getTime()))
     		offset += local.getDSTSavings();
-    	
+    	*/
 		return new Date(calendar.getTimeInMillis());
     }
     
